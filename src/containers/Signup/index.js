@@ -13,10 +13,12 @@ import { Header, Button, InputText } from 'src/components';
 import { SIGNUP } from 'src/constants/texts';
 
 /* STYLES */
+import type { _t_navigation } from 'src/types';
 import styles from './styles';
 
-/* TYPES */
-type _t_props = {};
+type _t_props = {|
+  navigation: _t_navigation
+|};
 type _t_state = {
   email: string,
   password: string
@@ -28,6 +30,16 @@ export default class extends PureComponent<_t_props, _t_state> {
     email: '',
     password: '',
   }
+
+  goHome = () => {
+    const { navigation } = this.props;
+    if (navigation) {
+      navigation.navigate({
+        routeName: "Home",
+        key: "Home"
+      });
+    }
+  };
 
   render() {
     const { email, password } = this.state;
@@ -48,7 +60,7 @@ export default class extends PureComponent<_t_props, _t_state> {
               value={password}
             />
           </View>
-          <Button text={SIGNUP.BUTTON_TEXT} />
+          <Button text={SIGNUP.BUTTON_TEXT} onPress={this.goHome} />
         </View>
       </View>
     );

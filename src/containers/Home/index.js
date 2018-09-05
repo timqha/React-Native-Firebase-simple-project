@@ -14,10 +14,12 @@ import { Header, NewsItem } from 'src/components';
 import { HOME } from 'src/constants/texts';
 
 /* STYLES */
+import type { _t_navigation } from 'src/types';
 import styles from './styles';
 
-/* TYPES */
-type _t_props = {};
+type _t_props = {|
+  navigation: _t_navigation
+|};
 type _t_state = {
   data: Array<{title: string, description: string}>
 };
@@ -28,11 +30,29 @@ export default class extends Component<_t_props, _t_state> {
     data: THOUSAND_OBJ
   };
 
+  goBack = () => {
+    const { navigation } = this.props;
+    if (navigation) {
+      navigation.goBack();
+    }
+  };
+
+  goToNews = () => {
+    const { navigation } = this.props;
+    if (navigation) {
+      navigation.navigate({
+        routeName: "Newsitems",
+        key: "Newsitems"
+      });
+    }
+  };
+
+
   render() {
     const { data } = this.state;
     return (
       <View style={styles.container}>
-        <Header textCenter={HOME.HEADER} rightButton={HOME.SIGN_OUT} />
+        <Header onPress={this.goBack} textCenter={HOME.HEADER} rightButton={HOME.SIGN_OUT} />
         <View style={styles.content}>
           <FlatList
             data={data}
@@ -40,6 +60,7 @@ export default class extends Component<_t_props, _t_state> {
             renderItem={({ item, index }) => (
               <NewsItem
                 title={item.title}
+                goToNews={this.goToNews}
                 isChecked={index % 3 === 0}
                 description={item.description}
               />

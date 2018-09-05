@@ -3,12 +3,12 @@
 /* REACT */
 import React from 'react';
 import {
-  SafeAreaView,
+  View,
   StyleSheet,
 } from 'react-native';
 
 /* MODULES */
-import Newsitems from './containers/Newsitems';
+import Navigator from 'src/navigator';
 
 /* STYLES */
 const styles = StyleSheet.create({
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 });
 
 export default () => (
-  <SafeAreaView style={styles.root}>
-    <Newsitems />
-  </SafeAreaView>
+  <View style={styles.root}>
+    <Navigator />
+  </View>
 );
