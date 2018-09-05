@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 /* MODULES */
-import Signup from './containers/Signup';
+import Newsitems from './containers/Newsitems';
 
 /* STYLES */
 const styles = StyleSheet.create({
@@ -19,6 +19,6 @@ const styles = StyleSheet.create({
 
 export default () => (
   <SafeAreaView style={styles.root}>
-    <Signup />
+    <Newsitems />
   </SafeAreaView>
 );

@@ -4,3 +4,7 @@ export const SIGNUP = {
   EMAIL: "E-mail",
   PASSWORD: "Password",
 };
+
+export const NEWS_ITEM = {
+  HEADER: 'NewsItems',
+};
