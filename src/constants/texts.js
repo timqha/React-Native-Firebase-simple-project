@@ -8,3 +8,8 @@ export const SIGNUP = {
 export const NEWS_ITEM = {
   HEADER: 'NewsItems',
 };
+
+export const HOME = {
+  HEADER: 'Home',
+  SIGN_OUT: 'Sign Out'
+};
