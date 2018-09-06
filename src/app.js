@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
 export default () => (
   <Provider {...stores}>
     <View style={styles.root}>
+      {/* $FlowFixMe */}
       <Navigator />
     </View>
   </Provider>

@@ -2,18 +2,56 @@
 
 import { AsyncStorage } from "react-native";
 import { persist, create } from "mobx-persist";
-import { observable, action } from "mobx";
+import {
+  observable,
+  action,
+  computed,
+  toJS
+} from "mobx";
+import type { _t_newsItem } from 'src/types';
 
 class AuthStore {
   @persist @observable uid: string = "";
 
   @observable isHydrated: boolean = false;
 
-  @persist @observable email: string = "email@email.com";
+  @persist @observable email: string = "";
 
-  @persist @observable password: string = "";
+  @observable password: string = "";
 
-  @observable groups: {[key: string]: string} = {};
+  @observable emailError: string = "";
+
+  @observable passwordError: string = "";
+
+  @persist('object') @observable selectedNews: {[key: string]: string} = {};
+
+  @observable newsData: Object = {};
+
+  @computed get newsList(): Array<_t_newsItem> {
+    return Object.keys(this.newsData).map(news_id => ({
+      ...this.newsData[news_id],
+      id: news_id,
+      isSelect: this.isSelected(news_id)
+    }));
+  }
+
+  @computed get selectedNewsAll(): Object {
+    return toJS(this.selectedNews);
+  }
+
+  @action
+  isSelected(id: string): boolean {
+    return this.selectedNews && (id in this.selectedNews);
+  }
+
+  @action
+  setSelected(id: string) {
+    if (id in this.selectedNewsAll) {
+      delete this.selectedNews[id];
+    } else {
+      this.selectedNews = { ...this.selectedNews, [id]: true };
+    }
+  }
 
   @action
   setValue(params: Object) {
@@ -32,6 +70,10 @@ class AuthStore {
     this.uid = "";
     this.email = "";
     this.password = "";
+    this.emailError = "";
+    this.passwordError = "";
+    this.selectedNews = {};
+    this.newsData = {};
   }
 
   @action
