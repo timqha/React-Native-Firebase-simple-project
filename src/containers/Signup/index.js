@@ -5,6 +5,7 @@ import React, { PureComponent } from 'react';
 import {
   View,
 } from 'react-native';
+import { inject, observer } from 'mobx-react';
 
 /* MODULES */
 import { Header, Button, InputText } from 'src/components';
@@ -24,7 +25,9 @@ type _t_state = {
   password: string
 };
 
-export default class extends PureComponent<_t_props, _t_state> {
+@inject('auth')
+@observer
+class Signup extends PureComponent<_t_props, _t_state> {
 
   state = {
     email: '',
@@ -66,3 +69,5 @@ export default class extends PureComponent<_t_props, _t_state> {
     );
   }
 }
+
+export default Signup;
