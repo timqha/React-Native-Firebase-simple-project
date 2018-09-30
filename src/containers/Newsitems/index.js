@@ -30,14 +30,17 @@ export default (props: _t_props) => {
     }
   };
 
+  const item = props.navigation.getParam('item', '');
+  const { title, description } = item;
+
   return (
     <View style={styles.container}>
       <Header onPress={goBack} textCenter={NEWS_ITEM.HEADER} leftIcon="keyboard-arrow-left" />
       <View style={styles.content}>
         <ScrollView>
           <BoxInfo
-            title="Title"
-            description="description"
+            title={title}
+            description={description}
           />
         </ScrollView>
       </View>

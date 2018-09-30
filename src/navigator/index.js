@@ -1,10 +1,12 @@
 // @flow
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import { createStackNavigator } from 'react-navigation';
+import { inject, observer } from 'mobx-react';
 
 /* Modules */
-import { COLORS } from 'src/configs';
+import FirebaseSdk from 'src/services';
+import { COLORS, FIREBASE_CONFIG } from 'src/configs';
 import Home from 'src/containers/Home';
 import Signup from 'src/containers/Signup';
 import Newsitems from 'src/containers/Newsitems';
@@ -33,16 +35,45 @@ const setNavigatorConfig = {
 };
 
 /* TYPES */
-type _t_props = {};
+import type { _t_firebase, _t_auth } from 'src/types';
 
-export default class Navigator extends PureComponent<_t_props> {
+type _t_props = {|
+  auth: _t_auth
+|};
 
-  initRouter = () => createStackNavigator(routeConfig, setNavigatorConfig)
+@inject('auth')
+@observer
+class Navigator extends Component<_t_props> {
+
+  firebase: _t_firebase;
+
+  constructor(props: _t_props) {
+    super(props);
+    this.firebase = new FirebaseSdk(FIREBASE_CONFIG);
+  }
+
+  _setNavigatorConfig() {
+
+    const { auth } = this.props;
+
+    const navigatorConfig = setNavigatorConfig;
+
+    if (auth && auth.uid) {
+      navigatorConfig.initialRouteName = 'Home';
+    }
+    return navigatorConfig;
+  }
+
+  initRouter = () => createStackNavigator(routeConfig, this._setNavigatorConfig())
 
   render() {
+    if (!this.props.auth.isHydrated) { return null; }
     const Router = this.initRouter();
+
     return (
-      <Router screenProps={{}} />
+      <Router screenProps={{ sdk: this.firebase }} />
     );
   }
 }
+
+export default Navigator;
