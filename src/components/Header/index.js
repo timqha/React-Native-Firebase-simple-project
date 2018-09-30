@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 /* MODULES */
-import { COLORS } from 'src/configs';
+import { COLORS, SIZES } from 'src/configs';
 
 /* STYLES */
 import styles from './styles';
@@ -40,7 +40,7 @@ export default (props: _t_props) => {
         {
           leftIcon
             ? (
-              <TouchableOpacity onPress={onPress}>
+              <TouchableOpacity hitSlop={SIZES.MORE_TOUCH} onPress={onPress}>
                 <Icon
                   name={leftIcon}
                   size={22}

@@ -6,13 +6,15 @@ import { COLORS } from 'src/configs';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
     backgroundColor: COLORS.WHITE,
+    padding: 15
   },
-  content: {
-    flex: 0.65,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    marginHorizontal: 35,
+  titleStyle: {
+    fontSize: 20,
+    fontWeight: '600',
+    paddingVertical: 20,
+  },
+  descriptionStyle: {
+    fontWeight: '500',
   }
 });
