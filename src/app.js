@@ -3,12 +3,15 @@
 /* REACT */
 import React from 'react';
 import {
-  SafeAreaView,
+  View,
   StyleSheet,
 } from 'react-native';
+import { Provider } from 'mobx-react/native';
+
 
 /* MODULES */
-import Newsitems from './containers/Newsitems';
+import stores from 'src/stores';
+import Navigator from 'src/navigator';
 
 /* STYLES */
 const styles = StyleSheet.create({
@@ -18,7 +21,10 @@ const styles = StyleSheet.create({
 });
 
 export default () => (
-  <SafeAreaView style={styles.root}>
-    <Newsitems />
-  </SafeAreaView>
+  <Provider {...stores}>
+    <View style={styles.root}>
+      {/* $FlowFixMe */}
+      <Navigator />
+    </View>
+  </Provider>
 );

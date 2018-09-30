@@ -1,10 +1,16 @@
 // @flow
 
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { COLORS } from 'src/configs';
+import { isIphoneX } from 'src/utils/layout';
 
 export default StyleSheet.create({
   container: {
+    ...Platform.select({
+      ios: {
+        marginTop: isIphoneX() ? 45 : 20,
+      }
+    }),
     width: '100%',
     height: 30,
     flexDirection: 'row',
